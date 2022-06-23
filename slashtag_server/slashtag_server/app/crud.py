@@ -27,16 +27,14 @@ def get_friend(db: Session, id: int):
     """
     get the first record with a given id, if no such record exists, will return null
     """
-    db_friend = db.query(Friend).filter(Friend.id == id).first()
-    return db_friend
+    return db.query(Friend).filter(Friend.id == id).first()
 
 
 def list_friends(db: Session):
     """
     Return a list of all existing Friend records
     """
-    all_friends = db.query(Friend).all()
-    return all_friends
+    return db.query(Friend).all()
 
 
 def update_friend(db: Session, id: int, first_name: str, last_name: str, age: int):
