@@ -8,6 +8,7 @@
 - domain + email provider: Google
 - admin email: sean@slashtag.dev
 - stripe: <TBD>
+- issues: https://linear.app/astrocyte/team/TAG/active
 
 ### Main Applications
 

@@ -1,0 +1,52 @@
+display_information:
+  name: Slashtag
+  description: Data Annotation for your Team, built right into Slack
+  background_color: "#5963ff"
+  long_description: Empower the experts on your team to build better machine-learning models and annotate your datasets without leaving Slack. Teams can collaborate to make highly accurate datasets or leverage our active learning systems to focus on labeling the most important data.
+features:
+  bot_user:
+    display_name: Slashtag
+    always_online: true
+  shortcuts:
+    - name: Tag data
+      type: global
+      callback_id: tag_data
+      description: label
+  slash_commands:
+    - command: /tag
+      url: https://93d2940c9842.ngrok.io/slack/command
+      description: Label your data
+      usage_hint: project_name @user1 @user2
+      should_escape: true
+  unfurl_domains:
+    - slashtag.dev
+oauth_config:
+  redirect_urls:
+    - https://93d2940c9842.ngrok.io/slack/redirect
+  scopes:
+    bot:
+      - app_mentions:read
+      - channels:history
+      - channels:manage
+      - chat:write
+      - commands
+      - emoji:read
+      - files:read
+      - files:write
+      - groups:history
+      - links:read
+      - reactions:read
+      - reactions:write
+      - links:write
+settings:
+  event_subscriptions:
+    request_url: https://93d2940c9842.ngrok.io/slack/action-endpoint
+    bot_events:
+      - link_shared
+  interactivity:
+    is_enabled: true
+    request_url: https://93d2940c9842.ngrok.io/slack/interactive-endpoint
+    message_menu_options_url: https://93d2940c9842.ngrok.io/slack/options-load-endpoint
+  org_deploy_enabled: true
+  socket_mode_enabled: false
+  token_rotation_enabled: false

@@ -1,5 +1,9 @@
 This is a FastAPI server to manage webhooks for the Slack App
 
+# Running
+
+    poetry install
+    poetry run uvicorn slashtag_server.asgi:app --reload
 
 # Install
 

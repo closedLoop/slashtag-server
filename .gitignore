@@ -110,3 +110,6 @@ ENV/
 
 *.jsonl
 *.parquet
+
+# Local SQLite databases
+*.db
