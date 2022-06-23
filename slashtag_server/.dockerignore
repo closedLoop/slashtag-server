@@ -1,0 +1,5 @@
+.git
+.aws-sam
+venv
+htmlcov
+breakpoints.egg-info

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "slashtag_server"
+version = "0.1.0"
+description = ""
+authors = ["Sean Kruzel <sean@slashtag.dev>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+python-dotenv = "^0.20.0"
+slackclient = "^2.9.4"
+slackeventsapi = "^3.0.1"
+fastapi = "^0.78.0"
+pre-commit-hooks = "^4.3.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

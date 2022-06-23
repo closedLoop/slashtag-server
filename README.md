@@ -31,13 +31,45 @@
 
 ### Design:
 
+    - Primary #FFBD59
+    - Secondary #599BFF
+    - Tertiary #D9E8FF
+    - Dark Background #5963ff
+
+# Types of annotations:
+
+Data:
+
+1. Text (raw, tweets, slacks, etc..)
+1. Image
+1. Video
+1. Audio
+1. File
+
+Types:
+
+1. Binary / Multi-Class
+1. Can we do span selection for NLP?
+1. Bounding Boxes?
+1. Free Text / Survey Like
+
+# Case Studies:
+
+Pull in examples of building data-driven applications with SlashTag. Would be cool to create a live project that is a real-world example of how SlashTag can be used. Users can annote it usign SlashTag and then use the data to build a model (perhaps need 3+ users to agree so that it doens't get too noisy).
+
+1. Train own Reddit Sentiment Data From Scratch
+
+   1. Compare against existing models
+
+1. Fine-tuning Training BERT model for domain specific uses
+
+1. Labeling CRM data as it flows into Slack
+
+1. Find other popular tutorials and fast-follow them.
+
+## Tools:
+
+### Design:
+
+- Screenshot formatter - https://pika.style/open-graph-generator
 - https://www.colorbook.io/hexcolors/view/FFBD59
-  - Primary #FFBD59
-  - Secondary #599BFF
-  - Tertiary #D9E8FF
-  - Dark Background #5963ff
-
-## User Research:
-
-- https://docs.google.com/spreadsheets/d/13kh966aGOydhDeBK_Q5uxwu9TM3_mHhM9NCqLyIA8l4/edit?usp=sharing
-- https://www.notion.so/astrocyte/SlashTag-635bcde1ee9049d18ee685cb9710f801
