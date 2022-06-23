@@ -1,14 +1,13 @@
-import os
 from typing import Optional
 
 from fastapi import Request
 from fastapi.routing import APIRouter
 from pydantic import BaseModel
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
-from slack_bolt.async_app import AsyncApp
-from slack_bolt.oauth.async_oauth_settings import AsyncOAuthSettings
-from slack_sdk.oauth.installation_store import FileInstallationStore
-from slack_sdk.oauth.state_store import FileOAuthStateStore
+
+from .slack_app import get_slack_app
+
+# https://api.slack.com/apis/connections/events-api
 
 
 class ActionEndpoint(BaseModel):
@@ -17,32 +16,7 @@ class ActionEndpoint(BaseModel):
     type: Optional[str]
 
 
-# TODO move this to non-file-store
-# TODO confirm this is the proper way to do this
-# https://slack.dev/bolt-python/concepts#authenticating-oauth
-oauth_settings = AsyncOAuthSettings(
-    client_id=os.environ["SLACK_CLIENT_ID"],
-    client_secret=os.environ["SLACK_CLIENT_SECRET"],
-    scopes=os.environ["SLACK_SCOPES"].split(","),
-    installation_store=FileInstallationStore(base_dir="./data/installations"),
-    state_store=FileOAuthStateStore(expiration_seconds=600, base_dir="./data/states"),
-)
-
-slack_app = AsyncApp(
-    signing_secret=os.environ["SLACK_SIGNING_SECRET"], oauth_settings=oauth_settings
-)
-app_handler = AsyncSlackRequestHandler(slack_app)
-
-
-@slack_app.event("app_mention")
-async def handle_app_mentions(body, say, logger):
-    logger.info(body)
-    await say("What's up?")
-
-
-@slack_app.event("message")
-async def handle_message():
-    pass
+app_handler = AsyncSlackRequestHandler(get_slack_app())
 
 
 router = APIRouter()
@@ -51,6 +25,11 @@ router = APIRouter()
 # BOLT
 @router.post("/events")
 async def endpoint(req: Request):
+    return await app_handler.handle(req)
+
+
+@router.post("/tag")
+async def commands(req: Request):
     return await app_handler.handle(req)
 
 
@@ -71,21 +50,23 @@ def interactive_endpoint():
     return {"message": "Hello World"}
 
 
-@router.post("/command")
-def slash_command(req: Request):
-    print("req", req)
-    return {"message": "SlashCommand"}
+# @router.post("/command")
+# async def slash_command(req: Request):
+#     body = await app_handler.handle(req)
 
 
-@router.get("/redirect")
-def auth_redirect():
-    return {"message": "auth_redirect"}
+# @router.post("/command")
+# async def slash_command(req: Request):
+#     payload = await app_handler.handle(req)
 
 
 @router.post("/action-endpoint")
-def action_endpoint(message: ActionEndpoint):
+async def action_endpoint(req: Request):
+    message = ActionEndpoint(**await req.json())
     print(message)
-    return message.challenge if message.type == "url_verification" else message
+    if message.type == "url_verification":
+        return message.challenge
+    return await app_handler.handle(req)
 
 
 # For interactions with select menus where type is set to external_select,

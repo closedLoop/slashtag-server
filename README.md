@@ -13,6 +13,7 @@
 ### Main Applications
 
 - slack-app: https://api.slack.com/apps/A03LKMA65UN
+- install app: https://93d2940c9842.ngrok.io/slack/install
 - api: https://slashtag.dev/api
 - python app: https://pypi.com/slashtag
 
