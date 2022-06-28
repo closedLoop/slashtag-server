@@ -1,6 +1,10 @@
 import logging
 
-from slashtag_server.app.routes.slack_app.slack_models import PublicFileEvent
+from slashtag_server.app.routes.slack_app.helpers import download_file
+from slashtag_server.app.routes.slack_app.slack_models import (
+    PublicFileEvent,
+    SlackFileObject,
+)
 
 from .slack_app_config import slack_app
 
@@ -195,7 +199,15 @@ async def event_file_public(body, say, _event_logger):
     """A file was made public"""
     payload = PublicFileEvent(**body)
     logger.info(payload)
-    await say(f"file_public: {payload}", channel="#general")
+
+    # gets the file information in order to download the file
+    response = await say.client.files_info(file=payload.event.file_id)
+    f = SlackFileObject(**response["file"])
+    file_name = download_file(
+        f.url_private_download, token=say.client.token, prefix=f.user
+    )
+
+    await say(f":partying_face: file saved to: {file_name}", channel="#general")
 
 
 @slack_app.event("file_shared")
