@@ -14,7 +14,7 @@ features:
       description: label
   slash_commands:
     - command: /tag
-      url: https://93d2940c9842.ngrok.io/slack/command
+      url: https://f9224c931ed6.ngrok.io/slack/tag
       description: Label your data
       usage_hint: project_name @user1 @user2
       should_escape: true
@@ -22,7 +22,7 @@ features:
     - slashtag.dev
 oauth_config:
   redirect_urls:
-    - https://93d2940c9842.ngrok.io/slack/redirect
+    - https://f9224c931ed6.ngrok.io/slack/oauth_redirect
   scopes:
     bot:
       - app_mentions:read
@@ -40,13 +40,13 @@ oauth_config:
       - links:write
 settings:
   event_subscriptions:
-    request_url: https://93d2940c9842.ngrok.io/slack/action-endpoint
+    request_url: https://f9224c931ed6.ngrok.io/slack/action-endpoint
     bot_events:
       - link_shared
   interactivity:
     is_enabled: true
-    request_url: https://93d2940c9842.ngrok.io/slack/interactive-endpoint
-    message_menu_options_url: https://93d2940c9842.ngrok.io/slack/options-load-endpoint
+    request_url: https://f9224c931ed6.ngrok.io/slack/interactive-endpoint
+    message_menu_options_url: https://f9224c931ed6.ngrok.io/slack/options-load-endpoint
   org_deploy_enabled: true
   socket_mode_enabled: false
   token_rotation_enabled: false
